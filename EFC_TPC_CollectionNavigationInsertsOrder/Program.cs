@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace EFSampleApp;
@@ -22,7 +23,38 @@ public class Program
         using (var db = new MyContext())
         {
             // Run queries
+
+            db.MagicSkills.Add(new MagicSkill
+            {
+                Name = "Firebolt",
+                RunicName = "ignis",
+            });
+            db.MagicSkills.Add(new MagicSkill
+            {
+                Name = "Lightning",
+                RunicName = "fulgur",
+            });
+            db.MartialSkills.Add(new MartialSkill
+            {
+                Name = "Combo1",
+                HasStrike = true,
+            });
+
+            db.SaveChanges();
+
             // var query = db.Blogs.ToList();
+            db.Players.Add(new Player
+            {
+                Skills = new List<PlayerToSkill>
+                {
+                    new()
+                    {
+                       SkillId = db.MagicSkills.First(s => s.Name == "Firebolt").Id,
+                    }
+                },
+            });
+
+            db.SaveChanges();
         }
         Console.WriteLine("Program finished.");
     }
@@ -53,13 +85,19 @@ public class MyContext : DbContext
             //.UseInMemoryDatabase(databaseName: "_modelApp")
             //.UseCosmos("https://localhost:8081", @"C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", "_ModelApp")
             .EnableSensitiveDataLogging()
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
             .UseLoggerFactory(ContextLoggerFactory);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AbstractSkill>()
-            .UseTpcMappingStrategy();
+        modelBuilder.Entity<AbstractSkill>(e =>
+        {
+            e.UseTpcMappingStrategy()
+                .HasKey(s => s.Id);
+            e.Property(s => s.Id);
+        });
+
         modelBuilder.Entity<MartialSkill>();
         modelBuilder.Entity<MagicSkill>();
 
