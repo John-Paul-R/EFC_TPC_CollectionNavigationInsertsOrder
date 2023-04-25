@@ -8,6 +8,8 @@ public abstract class AbstractSkill
     public Guid Id { get; set; }
 
     public string Name { get; set; } = null!;
+
+    public ICollection<PlayerToSkill> PlayersWithSkill { get; set; } = null!;
 }
 
 public class MartialSkill : AbstractSkill

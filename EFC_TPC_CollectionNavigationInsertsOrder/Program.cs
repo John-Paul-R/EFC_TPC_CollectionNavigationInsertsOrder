@@ -56,6 +56,23 @@ public class Program
             });
 
             db.SaveChanges();
+
+            // -- This is the repro --
+
+            db.MagicSkills.Add(new MagicSkill
+            {
+                Name = "Fly",
+                RunicName = "asjdhkas",
+                PlayersWithSkill = new List<PlayerToSkill>
+                {
+                    new PlayerToSkill()
+                    {
+                        PlayerId = db.Players.First().Id,
+                    }
+                },
+            });
+
+            db.SaveChanges();
         }
         Console.WriteLine("Program finished.");
     }
@@ -115,7 +132,7 @@ public class NpgsqlContext : DbContext
             .WithOne(pts => pts.Player);
 
         modelBuilder.Entity<AbstractSkill>()
-            .HasMany<PlayerToSkill>()
+            .HasMany<PlayerToSkill>(a => a.PlayersWithSkill)
             .WithOne(pts => pts.Skill);
 
 
