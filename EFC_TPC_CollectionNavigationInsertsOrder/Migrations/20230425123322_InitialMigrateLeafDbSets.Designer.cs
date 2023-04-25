@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230425022230_MigrateLeafDbSets")]
-    partial class MigrateLeafDbSets
+    [Migration("20230425123322_InitialMigrateLeafDbSets")]
+    partial class InitialMigrateLeafDbSets
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("EFSampleApp.PlayerToSkill", b =>
@@ -75,7 +75,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.ToTable("MagicSkill");
+                    b.ToTable("MagicSkills");
                 });
 
             modelBuilder.Entity("EFSampleApp.MartialSkill", b =>
@@ -85,7 +85,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                     b.Property<bool>("HasStrike")
                         .HasColumnType("INTEGER");
 
-                    b.ToTable("MartialSkill");
+                    b.ToTable("MartialSkills");
                 });
 
             modelBuilder.Entity("EFSampleApp.PlayerToSkill", b =>

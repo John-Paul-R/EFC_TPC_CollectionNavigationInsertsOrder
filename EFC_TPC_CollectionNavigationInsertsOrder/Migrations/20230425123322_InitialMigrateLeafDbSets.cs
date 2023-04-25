@@ -5,13 +5,13 @@
 namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrateLeafDbSets : Migration
+    public partial class InitialMigrateLeafDbSets : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MagicSkill",
+                name: "MagicSkills",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false),
@@ -20,11 +20,11 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MagicSkill", x => x.Id);
+                    table.PrimaryKey("PK_MagicSkills", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MartialSkill",
+                name: "MartialSkills",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false),
@@ -33,11 +33,11 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MartialSkill", x => x.Id);
+                    table.PrimaryKey("PK_MartialSkills", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Player",
+                name: "Players",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -45,7 +45,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Player", x => x.Id);
+                    table.PrimaryKey("PK_Players", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,9 +61,9 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                 {
                     table.PrimaryKey("PK_PlayerToSkill", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayerToSkill_Player_PlayerId",
+                        name: "FK_PlayerToSkill_Players_PlayerId",
                         column: x => x.PlayerId,
-                        principalTable: "Player",
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -83,16 +83,16 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MagicSkill");
+                name: "MagicSkills");
 
             migrationBuilder.DropTable(
-                name: "MartialSkill");
+                name: "MartialSkills");
 
             migrationBuilder.DropTable(
                 name: "PlayerToSkill");
 
             migrationBuilder.DropTable(
-                name: "Player");
+                name: "Players");
         }
     }
 }

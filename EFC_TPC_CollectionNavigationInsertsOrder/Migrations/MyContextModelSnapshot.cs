@@ -40,7 +40,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("EFSampleApp.PlayerToSkill", b =>
@@ -72,7 +72,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.ToTable("MagicSkill");
+                    b.ToTable("MagicSkills");
                 });
 
             modelBuilder.Entity("EFSampleApp.MartialSkill", b =>
@@ -82,7 +82,7 @@ namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
                     b.Property<bool>("HasStrike")
                         .HasColumnType("INTEGER");
 
-                    b.ToTable("MartialSkill");
+                    b.ToTable("MartialSkills");
                 });
 
             modelBuilder.Entity("EFSampleApp.PlayerToSkill", b =>

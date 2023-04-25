@@ -41,7 +41,8 @@ public class MyContext : DbContext
 
     // Declare DBSets
     public DbSet<MartialSkill> MartialSkills { get; set; }
-    public DbSet<MartialSkill> MagicSkills { get; set; }
+    public DbSet<MagicSkill> MagicSkills { get; set; }
+    public DbSet<Player> Players { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
