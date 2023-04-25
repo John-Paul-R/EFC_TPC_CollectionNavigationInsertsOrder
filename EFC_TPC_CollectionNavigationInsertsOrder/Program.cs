@@ -73,6 +73,13 @@ public class Program
             });
 
             db.SaveChanges();
+            // Atm, this SaveChanges is yielding correct insert order:
+            // info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+            //   Executed DbCommand (1ms) [Parameters=[@p0='14f59065-2c8a-44c7-bfa4-0422c786e10f', @p1='Fly' (Nullable = false), @p2='asjdhkas' (Nullable = false), @p3='1185f433-5c07-4b4f-aa53-dfcfd356a27a', @p4='cb799828-e49d-4de6-9bd2-1463d20d1025', @p5='14f59065-2c8a-44c7-bfa4-0422c786e10f'], CommandType='Text', CommandTimeout='30']
+            //   INSERT INTO "MagicSkills" ("Id", "Name", "RunicName")
+            //   VALUES (@p0, @p1, @p2);
+            //   INSERT INTO "PlayerToSkill" ("Id", "PlayerId", "SkillId")
+            //   VALUES (@p3, @p4, @p5);
         }
         Console.WriteLine("Program finished.");
     }
