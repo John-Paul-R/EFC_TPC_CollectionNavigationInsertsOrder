@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace EFSampleApp;
 
 public abstract class AbstractSkill
 {
-    public long Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
 
     public string Name { get; set; } = null!;
 }
@@ -19,17 +22,19 @@ public class MagicSkill : AbstractSkill
 
 public class Player
 {
-    public long Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
     public ICollection<PlayerToSkill> Skills { get; set; } = null!;
 }
 
 public class PlayerToSkill
 {
-    public long Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
 
-    public long PlayerId { get; set; }
+    public Guid PlayerId { get; set; }
     public Player Player { get; set; } = null!;
 
-    public long SkillId { get; set; }
+    public Guid SkillId { get; set; }
     public AbstractSkill Skill { get; set; } = null!;
 }
