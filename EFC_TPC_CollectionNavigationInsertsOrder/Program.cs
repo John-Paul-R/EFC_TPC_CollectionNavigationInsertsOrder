@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 
 namespace EFSampleApp;
 
@@ -8,7 +9,7 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        using (var db = new MyContext())
+        using (var db = new NpgsqlContext())
         {
             // Recreate database
             db.Database.EnsureDeleted();
@@ -20,7 +21,7 @@ public class Program
             db.SaveChanges();
         }
 
-        using (var db = new MyContext())
+        using (var db = new NpgsqlContext())
         {
             // Run queries
 
@@ -61,7 +62,7 @@ public class Program
 }
 
 
-public class MyContext : DbContext
+public class NpgsqlContext : DbContext
 {
     private static ILoggerFactory ContextLoggerFactory
         => LoggerFactory.Create(b =>
@@ -78,12 +79,20 @@ public class MyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var connectionString = new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 5432,
+            Database = "EFC_TPC_CollectionNavigationInsertsOrder",
+            Username = "postgres",
+        }.ToString();
         // Select 1 provider
         optionsBuilder
             // .UseSqlite(@"Server=(localdb)\mssqllocaldb;Database=_ModelApp;Trusted_Connection=True;Connect Timeout=5;ConnectRetryCount=0")
-            .UseSqlite("filename=_modelApp.db")
+            // .UseSqlite("filename=_modelApp.db")
             //.UseInMemoryDatabase(databaseName: "_modelApp")
             //.UseCosmos("https://localhost:8081", @"C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", "_ModelApp")
+            .UseNpgsql(connectionString)
             .EnableSensitiveDataLogging()
             .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
             .UseLoggerFactory(ContextLoggerFactory);
