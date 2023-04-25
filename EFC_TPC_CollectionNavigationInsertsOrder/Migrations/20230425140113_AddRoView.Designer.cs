@@ -3,6 +3,7 @@ using System;
 using EFSampleApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EFC_TPC_CollectionNavigationInsertsOrder.Migrations
 {
     [DbContext(typeof(NpgsqlContext))]
-    partial class NpgsqlContextModelSnapshot : ModelSnapshot
+    [Migration("20230425140113_AddRoView")]
+    partial class AddRoView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

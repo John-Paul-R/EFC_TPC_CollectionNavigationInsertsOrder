@@ -22,6 +22,13 @@ public class MagicSkill : AbstractSkill
     public string RunicName { get; set; } = null!;
 }
 
+public class SkillRoView
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = null!;
+    public ICollection<PlayerToSkill> Skills { get; set; } = null!;
+}
+
 public class Player
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -39,4 +46,5 @@ public class PlayerToSkill
 
     public Guid SkillId { get; set; }
     public AbstractSkill Skill { get; set; } = null!;
+    public SkillRoView SkillRoView { get; set; } = null!;
 }

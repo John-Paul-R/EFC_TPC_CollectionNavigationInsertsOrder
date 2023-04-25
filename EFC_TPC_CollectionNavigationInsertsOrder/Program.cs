@@ -13,7 +13,7 @@ public class Program
         {
             // Recreate database
             db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
+            db.Database.Migrate();
 
             // Seed database
 
@@ -142,6 +142,9 @@ public class NpgsqlContext : DbContext
             .HasMany<PlayerToSkill>(a => a.PlayersWithSkill)
             .WithOne(pts => pts.Skill);
 
+        modelBuilder.Entity<SkillRoView>()
+            .HasMany<PlayerToSkill>(a => a.Skills)
+            .WithOne(pts => pts.SkillRoView);
 
     }
 }
